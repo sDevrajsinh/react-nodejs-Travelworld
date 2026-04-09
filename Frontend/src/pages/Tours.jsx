@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import Subscribe from '../components/Subscribe';
 import Skeleton from '../components/Skeleton';
 import TourCard from '../components/TourCard';
@@ -9,8 +10,48 @@ import useFetch from '../hooks/useFetch';
 import { BASE_URL } from '../utils/config';
 
 const Tours = () => {
-    const { data: tours, loading, error } = useFetch(`${BASE_URL}/tours`);
-    const [searchTerm, setSearchTerm] = useState("");
+    const location = useLocation();
+    
+    // Read query params from URL
+    const queryParams = new URLSearchParams(location.search);
+    const initialCity = queryParams.get('city') || '';
+    const initialDistance = queryParams.get('distance') || '';
+    const initialMaxGroupSize = queryParams.get('maxGroupSize') || '';
+
+    const [city, setCity] = useState(initialCity);
+    const [distance, setDistance] = useState(initialDistance);
+    const [maxGroupSize, setMaxGroupSize] = useState(initialMaxGroupSize);
+    
+    const [url, setUrl] = useState(`${BASE_URL}/tours`);
+
+    // On mount or URL change, auto-search if params exist
+    useEffect(() => {
+        let q = [];
+        if (initialCity) q.push(`city=${initialCity}`);
+        if (initialDistance) q.push(`distance=${initialDistance}`);
+        if (initialMaxGroupSize) q.push(`maxGroupSize=${initialMaxGroupSize}`);
+        
+        if (q.length > 0) {
+            setUrl(`${BASE_URL}/tours/search/getTourBySearch?${q.join('&')}`);
+        } else {
+            setUrl(`${BASE_URL}/tours`);
+        }
+    }, [initialCity, initialDistance, initialMaxGroupSize]);
+
+    const { data: tours, loading, error } = useFetch(url);
+
+    const searchHandler = () => {
+        let q = [];
+        if (city) q.push(`city=${city}`);
+        if (distance) q.push(`distance=${distance}`);
+        if (maxGroupSize) q.push(`maxGroupSize=${maxGroupSize}`);
+        
+        if (q.length > 0) {
+            setUrl(`${BASE_URL}/tours/search/getTourBySearch?${q.join('&')}`);
+        } else {
+            setUrl(`${BASE_URL}/tours`);
+        }
+    };
 
     return (
         <div className="tours-page">
@@ -53,24 +94,31 @@ const Tours = () => {
                             <FaMapMarkerAlt className="text-primary me-3 flex-shrink-0" />
                             <div className="flex-grow-1 text-start">
                                 <label className="d-block small fw-bold text-dark mb-0">Location</label>
-                                <input type="text" placeholder="Where to?" className="form-control border-0 p-0 shadow-none small bg-transparent" />
+                                <input type="text" placeholder="Where to?" 
+                                       className="form-control border-0 p-0 shadow-none small bg-transparent" 
+                                       value={city} onChange={(e) => setCity(e.target.value)} />
                             </div>
                         </div>
                         <div className="d-none d-md-flex align-items-center flex-grow-1 px-3 border-end border-light">
                             <FaMapPin className="text-primary me-3 flex-shrink-0" />
                             <div className="flex-grow-1 text-start">
                                 <label className="d-block small fw-bold text-dark mb-0">Distance</label>
-                                <input type="text" placeholder="km" className="form-control border-0 p-0 shadow-none small bg-transparent" />
+                                <input type="number" placeholder="km" 
+                                       className="form-control border-0 p-0 shadow-none small bg-transparent" 
+                                       value={distance} onChange={(e) => setDistance(e.target.value)} />
                             </div>
                         </div>
                         <div className="d-none d-md-flex align-items-center flex-grow-1 px-3">
                             <FaUserFriends className="text-primary me-3 flex-shrink-0" />
                             <div className="flex-grow-1 text-start">
                                 <label className="d-block small fw-bold text-dark mb-0">Guests</label>
-                                <input type="number" placeholder="0" className="form-control border-0 p-0 shadow-none small bg-transparent" />
+                                <input type="number" placeholder="0" 
+                                       className="form-control border-0 p-0 shadow-none small bg-transparent" 
+                                       value={maxGroupSize} onChange={(e) => setMaxGroupSize(e.target.value)} />
                             </div>
                         </div>
-                        <button className="btn btn-primary-custom p-0 rounded-circle d-flex align-items-center justify-content-center search-btn flex-shrink-0 mt-2 mt-md-0">
+                        <button className="btn btn-primary-custom p-0 rounded-circle d-flex align-items-center justify-content-center search-btn flex-shrink-0 mt-2 mt-md-0"
+                                onClick={searchHandler}>
                             <FaSearch size={20} />
                         </button>
                     </motion.div>

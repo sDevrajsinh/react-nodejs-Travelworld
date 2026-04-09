@@ -1,10 +1,26 @@
 import { motion } from 'framer-motion';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import heroImg01 from '../assets/images/travel/hero-img-1.jpg';
 import heroImg02 from '../assets/images/travel/hero-img-2.jpg';
 import heroVideo from '../assets/images/travel/hero-video.mp4';
 import { FaMapMarkerAlt, FaMapPin, FaUserFriends, FaSearch } from 'react-icons/fa';
 
 const Hero = () => {
+    const [city, setCity] = useState('');
+    const [distance, setDistance] = useState('');
+    const [maxGroupSize, setMaxGroupSize] = useState('');
+    const navigate = useNavigate();
+
+    const searchHandler = () => {
+        let queryParams = [];
+        if (city) queryParams.push(`city=${city}`);
+        if (distance) queryParams.push(`distance=${distance}`);
+        if (maxGroupSize) queryParams.push(`maxGroupSize=${maxGroupSize}`);
+        
+        navigate(`/tours?${queryParams.join('&')}`);
+    };
+
     return (
         <section className="hero-section overflow-hidden bg-white">
             <div className="container">
@@ -34,24 +50,31 @@ const Hero = () => {
                                 <FaMapMarkerAlt className="text-primary me-3 flex-shrink-0" />
                                 <div>
                                     <label className="d-block small fw-bold text-dark mb-0">Location</label>
-                                    <input type="text" placeholder="Where to?" className="form-control border-0 p-0 shadow-none small bg-transparent" />
+                                    <input type="text" placeholder="Where to?" 
+                                           className="form-control border-0 p-0 shadow-none small bg-transparent" 
+                                           value={city} onChange={e => setCity(e.target.value)} />
                                 </div>
                             </div>
                             <div className="d-none d-md-flex align-items-center flex-grow-1 px-3 py-1 border-start border-end border-light">
                                 <FaMapPin className="text-primary me-3 flex-shrink-0" />
                                 <div>
                                     <label className="d-block small fw-bold text-dark mb-0">Distance</label>
-                                    <input type="text" placeholder="km" className="form-control border-0 p-0 shadow-none small bg-transparent" />
+                                    <input type="number" placeholder="km" 
+                                           className="form-control border-0 p-0 shadow-none small bg-transparent" 
+                                           value={distance} onChange={e => setDistance(e.target.value)} />
                                 </div>
                             </div>
                             <div className="d-none d-md-flex align-items-center flex-grow-1 px-3 py-1">
                                 <FaUserFriends className="text-primary me-3 flex-shrink-0" />
                                 <div>
                                     <label className="d-block small fw-bold text-dark mb-0">Guests</label>
-                                    <input type="number" placeholder="0" className="form-control border-0 p-0 shadow-none small bg-transparent" />
+                                    <input type="number" placeholder="0" 
+                                           className="form-control border-0 p-0 shadow-none small bg-transparent" 
+                                           value={maxGroupSize} onChange={e => setMaxGroupSize(e.target.value)} />
                                 </div>
                             </div>
-                            <button className="btn btn-primary-custom p-0 rounded-circle d-flex align-items-center justify-content-center flex-shrink-0 search-btn mt-2 mt-md-0">
+                            <button className="btn btn-primary-custom p-0 rounded-circle d-flex align-items-center justify-content-center flex-shrink-0 search-btn mt-2 mt-md-0"
+                                    onClick={searchHandler}>
                                 <FaSearch size={18} />
                             </button>
                         </div>

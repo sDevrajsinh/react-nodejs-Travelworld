@@ -34,6 +34,37 @@ exports.getFeaturedTours = async (req, res) => {
     }
 };
 
+// @desc    Search tours by location, distance, max group size
+// @route   GET /api/tours/search/getTourBySearch
+// @access  Public
+exports.getTourBySearch = async (req, res) => {
+    // here 'i' means case insensitive
+    const city = new RegExp(req.query.city, 'i');
+    const distance = parseInt(req.query.distance);
+    const maxGroupSize = parseInt(req.query.maxGroupSize);
+
+    try {
+        // Build query object dynamically based on provided inputs
+        const query = {};
+        if (req.query.city) query.location = city;
+        if (!isNaN(distance)) query.distance = { $gte: distance };
+        if (!isNaN(maxGroupSize)) query.maxGroupSize = { $gte: maxGroupSize };
+
+        const tours = await Tour.find(query);
+
+        res.status(200).json({
+            success: true,
+            message: "Successful",
+            data: tours,
+        });
+    } catch (err) {
+        res.status(404).json({
+            success: false,
+            message: "not found",
+        });
+    }
+};
+
 // @desc    Get single tour
 // @route   GET /api/tours/:id
 // @access  Public

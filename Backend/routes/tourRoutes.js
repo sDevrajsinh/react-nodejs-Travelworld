@@ -2,6 +2,7 @@ const express = require('express');
 const {
     getTours,
     getFeaturedTours,
+    getTourBySearch,
     getSingleTour,
     createTour,
     updateTour,
@@ -17,6 +18,7 @@ router.route('/')
     .post(protect, authorize('admin'), createTour);
 
 router.get('/search/getFeaturedTours', getFeaturedTours);
+router.get('/search/getTourBySearch', getTourBySearch);
 
 router.route('/:id')
     .get(getSingleTour)

@@ -7,7 +7,8 @@
     "install-all": "cd Frontend && npm install && cd ../Backend && npm install",
     "build": "cd Frontend && npm run build",
     "start": "node Backend/index.js",
-    "render-postbuild": "npm run install-all && npm run build"
+    "render-postbuild": "npm run install-all && npm run build",
+    "postinstall": "npm run install-all && npm run build"
   },
   "dependencies": {},
   "engines": {
