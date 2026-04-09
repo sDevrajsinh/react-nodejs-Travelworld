@@ -58,21 +58,19 @@ app.get('/api/test', (req, res) => {
     res.send('API is running...');
 });
 
-// Serve Static Assets in production
-if (process.env.NODE_ENV === 'production') { 
-    const frontendPath = path.join(__dirname, '../Frontend/dist');
-    app.use(express.static(frontendPath));
+// --- STATIC ASSETS & REACT SERVING ---
+// Now serving from the 'dist' folder inside the Backend directory
+const frontendPath = path.resolve(__dirname, "dist");
 
-    // Handle any other routes by serving index.html
-    app.get('*path', (req, res) => {
-        // Check if the path starts with /api - if so, don't serve index.html
-        if (!req.url.startsWith('/api')) {
-            res.sendFile(path.resolve(frontendPath, 'index.html'));
-        } else {
-            res.status(404).json({ message: 'API Route Not Found' });
-        }
-    });
-}
+app.use(express.static(frontendPath));
+
+app.get('*', (req, res) => {
+  if (!req.url.startsWith('/api')) {
+    res.sendFile(path.join(frontendPath, 'index.html'));
+  } else {
+    res.status(404).send("API route not found");
+  }
+});
 
 const PORT = process.env.PORT || 5000;
 
