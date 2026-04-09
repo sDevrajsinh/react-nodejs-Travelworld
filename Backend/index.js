@@ -18,19 +18,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // CORS
-const allowedOrigins = [
-    'http://localhost:5173',
-    'http://localhost:5174',
-    process.env.FRONTEND_URL
-].filter(Boolean);
-
 app.use(cors({
     origin: function (origin, callback) {
-        if (!origin || allowedOrigins.indexOf(origin) !== -1) {
-            callback(null, true);
-        } else {
-            callback(new Error('Not allowed by CORS'));
-        }
+        // Allow all origins dynamically to avoid CORS issues for static assets
+        const allowed = origin || '*';
+        callback(null, true);
     },
     credentials: true
 }));
