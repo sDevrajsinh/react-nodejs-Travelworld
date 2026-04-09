@@ -44,7 +44,6 @@ app.use((req, res, next) => {
     next();
 });
 
-const errorHandler = require('./middleware/error');
 
 // API Routes
 app.use('/api/v1/tours', require('./routes/tourRoutes'));
@@ -54,8 +53,6 @@ app.use('/api/v1/booking', require('./routes/bookingRoutes'));
 app.get('/api/test', (req, res) => {
     res.send('API is running...');
 });
-
-app.use(errorHandler);
 
 // ==========================
 // SERVE REACT BUILD
@@ -70,6 +67,9 @@ app.use(express.static(frontendPath));
 app.use((req, res) => {
     res.sendFile(path.join(frontendPath, "index.html"));
 });
+
+const errorHandler = require('./middleware/error');
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 

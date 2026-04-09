@@ -52,8 +52,7 @@ body {
 }
 
 img {
-    max-width: 100% !important;
-    height: auto !important;
+    max-width: 100%;
 }
 
 /* Lenis smooth scroll */
@@ -130,6 +129,7 @@ main {
 .line-clamp-2 {
     display: -webkit-box;
     -webkit-line-clamp: 2;
+    line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
