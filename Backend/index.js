@@ -5,7 +5,6 @@ const cookieParser = require('cookie-parser');
 const connectDB = require('./config/db');
 const path = require('path');
 
-
 // Load environment variables
 dotenv.config();
 
@@ -22,7 +21,7 @@ app.use(express.urlencoded({ extended: true }));
 const allowedOrigins = [
     'http://localhost:5173',
     'http://localhost:5174',
-    process.env.FRONTEND_URL // Will add this in deployment
+    process.env.FRONTEND_URL
 ].filter(Boolean);
 
 app.use(cors({
@@ -51,25 +50,29 @@ app.use('/api/v1/tours', require('./routes/tourRoutes'));
 app.use('/api/v1/auth', require('./routes/authRoutes'));
 app.use('/api/v1/booking', require('./routes/bookingRoutes'));
 
-app.use(errorHandler);
-
-// Basic Route
+// Test API
 app.get('/api/test', (req, res) => {
     res.send('API is running...');
 });
 
+// Error handler
+app.use(errorHandler);
+
 // --- STATIC ASSETS & REACT SERVING ---
-// Now serving from the 'dist' folder inside the Backend directory
 const frontendPath = path.resolve(__dirname, "dist");
 
 app.use(express.static(frontendPath));
 
-app.get('/*', (req, res) => {
+/* FIXED ROUTE */
+app.use((req, res, next) => {
     if (!req.url.startsWith('/api')) {
-        res.sendFile(path.join(frontendPath, 'index.html'));
-    } else {
-        res.status(404).send("API route not found");
+        return res.sendFile(path.join(frontendPath, 'index.html'));
     }
+    next();
+});
+
+app.use((req, res) => {
+    res.status(404).send("API route not found");
 });
 
 const PORT = process.env.PORT || 5000;
