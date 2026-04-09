@@ -64,10 +64,10 @@ if (process.env.NODE_ENV === 'production') {
     app.use(express.static(frontendPath));
 
     // Handle any other routes by serving index.html
-    app.get('(.*)', (req, res) => {
+    app.get('/*', (req, res) => {
         // Check if the path starts with /api - if so, don't serve index.html
         if (!req.url.startsWith('/api')) {
-            res.sendFile(path.join(frontendPath, 'index.html'));
+            res.sendFile(path.resolve(frontendPath, 'index.html'));
         } else {
             res.status(404).json({ message: 'API Route Not Found' });
         }
