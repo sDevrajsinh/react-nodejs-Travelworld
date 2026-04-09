@@ -17,7 +17,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Dynamic CORS
+// CORS
 const allowedOrigins = [
     'http://localhost:5173',
     'http://localhost:5174',
@@ -37,46 +37,40 @@ app.use(cors({
 
 app.use(cookieParser());
 
-// Logging Middleware
+// Logger
 app.use((req, res, next) => {
-    console.log(`[${new Date().toISOString()}] ${req.method} ${req.url} - API Hit`);
+    console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
     next();
 });
 
 const errorHandler = require('./middleware/error');
 
-// Define Routes
+// API Routes
 app.use('/api/v1/tours', require('./routes/tourRoutes'));
 app.use('/api/v1/auth', require('./routes/authRoutes'));
 app.use('/api/v1/booking', require('./routes/bookingRoutes'));
 
-// Test API
 app.get('/api/test', (req, res) => {
     res.send('API is running...');
 });
 
-// Error handler
 app.use(errorHandler);
 
-// --- STATIC ASSETS & REACT SERVING ---
+// ==========================
+// SERVE REACT BUILD
+// ==========================
+
 const frontendPath = path.resolve(__dirname, "dist");
 
 app.use(express.static(frontendPath));
 
-/* FIXED ROUTE */
-app.use((req, res, next) => {
-    if (!req.url.startsWith('/api')) {
-        return res.sendFile(path.join(frontendPath, 'index.html'));
-    }
-    next();
-});
-
+// React Router fallback
 app.use((req, res) => {
-    res.status(404).send("API route not found");
+    res.sendFile(path.join(frontendPath, "index.html"));
 });
 
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT} in ${process.env.NODE_ENV} mode`);
+    console.log(`Server running on port ${PORT}`);
 });
