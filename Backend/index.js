@@ -3,6 +3,8 @@ const dotenv = require('dotenv');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const connectDB = require('./config/db');
+const path = require('path');
+
 
 // Load environment variables
 dotenv.config();
@@ -52,9 +54,25 @@ app.use('/api/v1/booking', require('./routes/bookingRoutes'));
 app.use(errorHandler);
 
 // Basic Route
-app.get('/', (req, res) => {
+app.get('/api/test', (req, res) => {
     res.send('API is running...');
 });
+
+// Serve Static Assets in production
+if (process.env.NODE_ENV === 'production') { 
+    const frontendPath = path.join(__dirname, '../Frontend/dist');
+    app.use(express.static(frontendPath));
+
+    // Handle any other routes by serving index.html
+    app.get('*', (req, res) => {
+        // Check if the path starts with /api - if so, don't serve index.html
+        if (!req.url.startsWith('/api')) {
+            res.sendFile(path.join(frontendPath, 'index.html'));
+        } else {
+            res.status(404).json({ message: 'API Route Not Found' });
+        }
+    });
+}
 
 const PORT = process.env.PORT || 5000;
 

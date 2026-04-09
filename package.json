@@ -1,0 +1,16 @@
+{
+  "name": "react-nodejs-travelworld",
+  "version": "1.0.0",
+  "description": "Travel World Application",
+  "main": "Backend/index.js",
+  "scripts": {
+    "install-all": "npm install && cd Frontend && npm install && cd ../Backend && npm install",
+    "build": "cd Frontend && npm run build",
+    "start": "node Backend/index.js",
+    "render-postbuild": "npm run install-all && npm run build"
+  },
+  "dependencies": {},
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
