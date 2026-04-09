@@ -35,6 +35,7 @@
 
 html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
 }
 
 body {
@@ -43,6 +44,16 @@ body {
     color: var(--text-dark);
     line-height: 1.6;
     overflow-x: hidden;
+}
+
+#root {
+    overflow-x: hidden;
+    width: 100%;
+}
+
+img {
+    max-width: 100% !important;
+    height: auto !important;
 }
 
 /* Lenis smooth scroll */
