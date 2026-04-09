@@ -64,16 +64,16 @@ const frontendPath = path.resolve(__dirname, "dist");
 
 app.use(express.static(frontendPath));
 
-app.get('*', (req, res) => {
-  if (!req.url.startsWith('/api')) {
-    res.sendFile(path.join(frontendPath, 'index.html'));
-  } else {
-    res.status(404).send("API route not found");
-  }
+app.get('/*', (req, res) => {
+    if (!req.url.startsWith('/api')) {
+        res.sendFile(path.join(frontendPath, 'index.html'));
+    } else {
+        res.status(404).send("API route not found");
+    }
 });
 
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+    console.log(`Server running on port ${PORT} in ${process.env.NODE_ENV} mode`);
 });
