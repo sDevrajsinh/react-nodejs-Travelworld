@@ -1,18 +1,18 @@
 import { FaCloudSun, FaMapMarkedAlt, FaCogs } from 'react-icons/fa';
 import Subscribe from '../components/Subscribe';
 import { motion } from 'framer-motion';
-import aboutImg from '../assets/images/travel/about-img-2.png';
+import aboutImg from '../assets/images/travel/gallery4.svg';
 import bannerBg from '../assets/images/travel/about-img-1.png';
 
 const About = () => {
     return (
         <div className="about-page">
-            <motion.section 
-                className="section-padding text-white text-center position-relative d-flex align-items-center justify-content-center" 
-                style={{ 
-                    minHeight: '400px', 
-                    backgroundImage: `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(${bannerBg})`, 
-                    backgroundSize: 'cover', 
+            <motion.section
+                className="section-padding text-white text-center position-relative d-flex align-items-center justify-content-center"
+                style={{
+                    minHeight: '400px',
+                    backgroundImage: `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(${bannerBg})`,
+                    backgroundSize: 'cover',
                     backgroundPosition: 'center',
                     backgroundAttachment: 'fixed'
                 }}
@@ -21,7 +21,7 @@ const About = () => {
                 transition={{ duration: 0.8 }}
             >
                 <div className="container z-1">
-                    <motion.h1 
+                    <motion.h1
                         className="display-2 fw-bold mb-3 font-playfair"
                         initial={{ y: 30, opacity: 0 }}
                         animate={{ y: 0, opacity: 1 }}
@@ -36,7 +36,7 @@ const About = () => {
             <section className="section-padding bg-white">
                 <div className="container">
                     <div className="row align-items-center gy-5">
-                        <motion.div 
+                        <motion.div
                             className="col-lg-6"
                             initial={{ opacity: 0, x: -50 }}
                             whileInView={{ opacity: 1, x: 0 }}
@@ -50,15 +50,15 @@ const About = () => {
                                 We believe in the power <br /> of <span className="text-primary">exploration</span>
                             </h2>
                             <p className="text-muted mb-4 fs-6 lh-lg pe-lg-5">
-                                TravelWorld was born out of a shared passion for discovery. We started as a small group of 
-                                travel enthusiasts and have grown into a leading travel agency, helping thousands of 
+                                TravelWorld was born out of a shared passion for discovery. We started as a small group of
+                                travel enthusiasts and have grown into a leading travel agency, helping thousands of
                                 travelers explore the world's most beautiful destinations.
                             </p>
                             <p className="text-muted mb-5 fs-6 lh-lg pe-lg-5">
-                                Our mission is simple: to provide seamless, personalized, and unforgettable travel 
+                                Our mission is simple: to provide seamless, personalized, and unforgettable travel
                                 experiences that connect people with cultures, nature, and themselves.
                             </p>
-                            
+
                             <div className="row g-4">
                                 {[
                                     { title: 'Exotic Places', text: 'Handpicked spots outside the usual tracks.' },
@@ -78,7 +78,7 @@ const About = () => {
                                 ))}
                             </div>
                         </motion.div>
-                        <motion.div 
+                        <motion.div
                             className="col-lg-6 text-center"
                             initial={{ opacity: 0, scale: 0.9 }}
                             whileInView={{ opacity: 1, scale: 1 }}

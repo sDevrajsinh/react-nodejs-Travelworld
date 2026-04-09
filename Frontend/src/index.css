@@ -482,6 +482,10 @@ main {
         height: auto !important;
     }
 }
+.search-container input {
+    width: 100%;
+    min-width: 0; /* Prevents native input width from causing overflow */
+}
 
 /* ============================================================
    TOUR CARDS

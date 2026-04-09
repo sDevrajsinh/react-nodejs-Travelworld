@@ -49,28 +49,28 @@ const Tours = () => {
                         animate={{ y: 0, opacity: 1 }}
                         transition={{ delay: 0.5, duration: 0.6 }}
                     >
-                         <div className="d-flex align-items-center flex-grow-1 px-3 border-end border-light">
-                            <FaMapMarkerAlt className="text-primary me-3" />
-                            <div className="flex-grow-1 text-start">
+                         <div className="d-flex align-items-center flex-grow-1 px-3 border-end border-light w-100">
+                            <FaMapMarkerAlt className="text-primary me-3 flex-shrink-0" />
+                            <div className="flex-grow-1 text-start overflow-hidden">
                                 <label className="d-block small fw-bold text-dark mb-0">Location</label>
-                                <input type="text" placeholder="Where to?" className="form-control border-0 p-0 shadow-none small bg-transparent" />
+                                <input type="text" placeholder="Where to?" className="form-control border-0 p-0 shadow-none small bg-transparent w-100" />
                             </div>
                         </div>
-                        <div className="d-flex align-items-center flex-grow-1 px-3 border-end border-light d-none d-md-flex">
-                            <FaMapPin className="text-primary me-3" />
-                            <div className="flex-grow-1 text-start">
+                        <div className="d-none d-md-flex align-items-center flex-grow-1 px-3 border-end border-light w-100">
+                            <FaMapPin className="text-primary me-3 flex-shrink-0" />
+                            <div className="flex-grow-1 text-start overflow-hidden">
                                 <label className="d-block small fw-bold text-dark mb-0">Distance</label>
-                                <input type="text" placeholder="km" className="form-control border-0 p-0 shadow-none small bg-transparent" />
+                                <input type="text" placeholder="km" className="form-control border-0 p-0 shadow-none small bg-transparent w-100" />
                             </div>
                         </div>
-                        <div className="d-flex align-items-center flex-grow-1 px-3 d-none d-md-flex">
-                            <FaUserFriends className="text-primary me-3" />
-                            <div className="flex-grow-1 text-start">
+                        <div className="d-none d-md-flex align-items-center flex-grow-1 px-3 w-100">
+                            <FaUserFriends className="text-primary me-3 flex-shrink-0" />
+                            <div className="flex-grow-1 text-start overflow-hidden">
                                 <label className="d-block small fw-bold text-dark mb-0">Guests</label>
-                                <input type="number" placeholder="0" className="form-control border-0 p-0 shadow-none small bg-transparent" />
+                                <input type="number" placeholder="0" className="form-control border-0 p-0 shadow-none small bg-transparent w-100" />
                             </div>
                         </div>
-                        <button className="btn btn-primary-custom p-3 rounded-circle d-flex align-items-center justify-content-center" style={{ width: '56px', height: '56px' }}>
+                        <button className="btn btn-primary-custom p-0 rounded-circle d-flex align-items-center justify-content-center search-btn flex-shrink-0 mt-2 mt-md-0">
                             <FaSearch size={20} />
                         </button>
                     </motion.div>
