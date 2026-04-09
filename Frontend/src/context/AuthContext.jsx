@@ -1,7 +1,17 @@
 import { createContext, useEffect, useReducer } from 'react';
 
+// Safely read persisted user; corrupted JSON won't crash the app
+const getSavedUser = () => {
+    try {
+        const raw = localStorage.getItem('user');
+        return raw ? JSON.parse(raw) : null;
+    } catch {
+        return null;
+    }
+};
+
 const initial_state = {
-    user: localStorage.getItem('user') !== undefined ? JSON.parse(localStorage.getItem('user')) : null,
+    user: getSavedUser(),
     loading: false,
     error: null
 };
@@ -36,6 +46,7 @@ const AuthReducer = (state, action) => {
             };
         case 'LOGOUT':
             localStorage.removeItem('token');
+            localStorage.removeItem('user');
             return {
                 user: null,
                 loading: false,

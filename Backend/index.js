@@ -17,12 +17,21 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// CORS
+// CORS - allow frontend origins
+const allowedOrigins = [
+    'http://localhost:5173',
+    'http://localhost:5174',
+    process.env.FRONTEND_URL,  // set this in Render env vars
+].filter(Boolean);
+
 app.use(cors({
     origin: function (origin, callback) {
-        // Allow all origins dynamically to avoid CORS issues for static assets
-        const allowed = origin || '*';
-        callback(null, true);
+        // Allow requests with no origin (mobile apps, curl, etc.) AND listed origins
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(null, true); // still allow for now during dev; tighten in prod
+        }
     },
     credentials: true
 }));
@@ -52,7 +61,8 @@ app.use(errorHandler);
 // SERVE REACT BUILD
 // ==========================
 
-const frontendPath = path.resolve(__dirname, "dist");
+// Resolve path to the Vite build output (Frontend/dist)
+const frontendPath = path.resolve(__dirname, "../Frontend/dist");
 
 app.use(express.static(frontendPath));
 

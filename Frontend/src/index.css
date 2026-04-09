@@ -13,6 +13,12 @@
     --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
     --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* Override Bootstrap primary to match our brand color */
+    --bs-primary: #ff7e01;
+    --bs-primary-rgb: 255, 126, 1;
+    --bs-link-color: #ff7e01;
+    --bs-link-hover-color: #e57100;
 }
 
 * {
@@ -83,6 +89,22 @@ button {
 ::-webkit-scrollbar-thumb {
     background: var(--primary-color);
     border-radius: 10px;
+}
+
+/* ==========================================
+   BOOTSTRAP OVERRIDES — keep orange theme
+   ========================================== */
+.text-primary { color: var(--primary-color) !important; }
+.bg-primary   { background-color: var(--primary-color) !important; }
+.border-primary { border-color: var(--primary-color) !important; }
+.badge.bg-primary { background-color: var(--primary-color) !important; }
+.bg-primary-light { background-color: var(--primary-light) !important; }
+
+/* ==========================================
+   LAYOUT — fixed navbar offset
+   ========================================== */
+main {
+    padding-top: 76px; /* height of fixed-top navbar */
 }
 
 /* Utilities */
@@ -202,7 +224,7 @@ button {
     z-index: 2;
 }
 
-/* Search Bar Improvement */
+/* Search Bar */
 .search-container {
     background: white;
     padding: 10px;
@@ -219,6 +241,58 @@ button {
         flex-direction: column;
         padding: 20px;
         gap: 10px;
+    }
+}
+
+/* ==========================================
+   HERO IMAGE BOXES — responsive
+   ========================================== */
+.hero-img-box {
+    width: 140px;
+    height: 380px;
+    flex-shrink: 0;
+}
+
+.hero-img-box--mid {
+    margin-top: 40px;
+}
+
+.hero-img-box--last {
+    margin-top: 80px;
+}
+
+@media (max-width: 991px) {
+    .hero-img-box {
+        width: 120px;
+        height: 300px;
+    }
+    .hero-img-box--mid  { margin-top: 30px; }
+    .hero-img-box--last { margin-top: 60px; }
+}
+
+@media (max-width: 576px) {
+    .hero-gallery {
+        gap: 12px !important;
+        justify-content: center !important;
+    }
+    .hero-img-box {
+        width: 42vw;
+        height: 240px;
+    }
+    .hero-img-box--mid  { margin-top: 24px; }
+    .hero-img-box--last { margin-top: 0 !important; display: none !important; }
+}
+
+/* ==========================================
+   PARALLAX — disable fixed attachment on mobile
+   (iOS has a known bug with background-attachment:fixed)
+   ========================================== */
+@media (max-width: 768px) {
+    [style*="background-attachment: fixed"],
+    [style*="backgroundAttachment:fixed"],
+    [style*='backgroundAttachment:"fixed"'],
+    [style*="backgroundAttachment: 'fixed'"] {
+        background-attachment: scroll !important;
     }
 }
 

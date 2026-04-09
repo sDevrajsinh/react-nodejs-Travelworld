@@ -20,8 +20,7 @@ const Tours = () => {
                     minHeight: '400px', 
                     backgroundImage: `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(${toursBgImg})`, 
                     backgroundSize: 'cover', 
-                    backgroundPosition: 'center',
-                    backgroundAttachment: 'fixed'
+                    backgroundPosition: 'center'
                 }}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}

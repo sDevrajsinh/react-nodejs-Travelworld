@@ -55,10 +55,9 @@ const Hero = () => {
                     </motion.div>
 
                     <div className="col-lg-6">
-                        <div className="hero-gallery d-flex gap-4 justify-content-lg-end justify-content-center">
+                        <div className="hero-gallery d-flex gap-3 justify-content-lg-end justify-content-center flex-wrap flex-sm-nowrap">
                             <motion.div 
-                                className="img-box rounded-4 overflow-hidden border border-white border-4 shadow-lg"
-                                style={{ width: '160px', height: '400px' }}
+                                className="hero-img-box rounded-4 overflow-hidden border border-white border-4 shadow-lg"
                                 initial={{ opacity: 0, y: 50 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.8, delay: 0.2 }}
@@ -66,19 +65,17 @@ const Hero = () => {
                                 <img src={heroImg01} alt="" className="w-100 h-100 object-fit-cover" />
                             </motion.div>
                             <motion.div 
-                                className="img-box rounded-4 overflow-hidden border border-white border-4 shadow-lg"
-                                style={{ width: '160px', height: '400px', marginTop: '40px' }}
+                                className="hero-img-box hero-img-box--mid rounded-4 overflow-hidden border border-white border-4 shadow-lg"
                                 initial={{ opacity: 0, y: 50 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.8, delay: 0.4 }}
                             >
-                                <video autoPlay loop muted className="w-100 h-100 object-fit-cover">
+                                <video autoPlay loop muted playsInline className="w-100 h-100 object-fit-cover">
                                     <source src={heroVideo} type="video/mp4" />
                                 </video>
                             </motion.div>
                             <motion.div 
-                                className="img-box rounded-4 overflow-hidden border border-white border-4 shadow-lg d-none d-sm-block"
-                                style={{ width: '160px', height: '400px', marginTop: '80px' }}
+                                className="hero-img-box hero-img-box--last rounded-4 overflow-hidden border border-white border-4 shadow-lg d-none d-sm-block"
                                 initial={{ opacity: 0, y: 50 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.8, delay: 0.6 }}

@@ -4,7 +4,7 @@
   "description": "Travel World Application",
   "main": "Backend/index.js",
   "scripts": {
-    "install-all": "npm install && cd Frontend && npm install && cd ../Backend && npm install",
+    "install-all": "cd Frontend && npm install && cd ../Backend && npm install",
     "build": "cd Frontend && npm run build",
     "start": "node Backend/index.js",
     "render-postbuild": "npm run install-all && npm run build"

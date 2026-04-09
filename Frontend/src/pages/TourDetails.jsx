@@ -84,8 +84,7 @@ const TourDetails = () => {
                         height: '500px', 
                         backgroundImage: `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.6)), url(${tour.image})`,
                         backgroundSize: 'cover',
-                        backgroundPosition: 'center',
-                        backgroundAttachment: 'fixed'
+                        backgroundPosition: 'center'
                     }}
                 ></div>
                 <div className="position-absolute bottom-0 start-0 w-100 p-5 text-white">
