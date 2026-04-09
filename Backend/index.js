@@ -5,7 +5,7 @@ const cookieParser = require('cookie-parser');
 const connectDB = require('./config/db');
 const path = require('path');
 
-dotenv.config();
+dotenv.config({ override: true });
 connectDB();
 const app = express();
 
@@ -16,7 +16,8 @@ app.use(express.urlencoded({ extended: true }));
 const allowedOrigins = [
     'http://localhost:5173',
     'http://localhost:5174',
-    'https://react-nodejs-travelworld.onrender.com'
+    'https://react-nodejs-travelworld.onrender.com',
+    process.env.FRONTEND_URL
 ].filter(Boolean);
 
 app.use(cors({
@@ -52,7 +53,7 @@ const frontendPath = path.resolve(__dirname, "../Frontend/dist");
 app.use(express.static(frontendPath));
 
 // Fallback to index.html for React Router
-app.get('*', (req, res) => {
+app.get(/.*/, (req, res) => {
     res.sendFile(path.join(frontendPath, 'index.html'));
 });
 
