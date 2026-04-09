@@ -17,7 +17,7 @@ const allowedOrigins = [
     'http://localhost:5173',
     'http://localhost:5174',
     'https://react-nodejs-travelworld.vercel.app',
-    'https://react-nodejs-travelworld.onrender.com',
+    'https://react-nodejs-travelworld-1.onrender.com',
     process.env.FRONTEND_URL
 ].filter(Boolean);
 
